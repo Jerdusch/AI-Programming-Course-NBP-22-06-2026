@@ -14,6 +14,7 @@ Design system extracted from the official **Narodowy Bank Polski** website ([nbp
 | Logo (wordmark) | [`../assets/logo.svg`](../assets/logo.svg) | Primary NBP logo — gold emblem + "NBP Narodowy Bank Polski" wordmark |
 | Favicon | [`../assets/favicon.ico`](../assets/favicon.ico) | Browser tab / bookmark icon |
 | Design tokens | [`../assets/design-tokens.json`](../assets/design-tokens.json) | Structured tokens for code consumption |
+| Fonts (self-hosted) | [`../assets/fonts/`](../assets/fonts/) | The two NBP brand typefaces, downloaded as TTF — see §3 |
 
 ---
 
@@ -85,6 +86,36 @@ font-family: "Libre Franklin", -apple-system, Arial, "Noto Sans", sans-serif;
 ```
 
 If the custom fonts are unavailable, the fallbacks above keep the serif/sans distinction.
+
+### Downloaded font files (available in this repo)
+
+Both families are committed under [`../assets/fonts/`](../assets/fonts/) as TrueType and can be used directly in the app — no external download needed at build time.
+
+| Family | Path | Files |
+|---|---|---|
+| Brygada 1918 (serif, headings) | `assets/fonts/brygada-1918/` | `Brygada1918-Regular.ttf`, `-Italic`, `-Medium`, `-MediumItalic`, `-SemiBold`, `-SemiBoldItalic`, `-Bold`, `-BoldItalic` (8 files) |
+| Libre Franklin (sans, body/UI) | `assets/fonts/libre-franklin/` | `LibreFranklin-Thin.ttf` → `-Black.ttf` across weights 100–900 + matching italics (18 files) |
+
+Example `@font-face` wiring against the local files:
+
+```css
+@font-face {
+  font-family: "Brygada 1918";
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  src: url("/assets/fonts/brygada-1918/Brygada1918-Medium.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Libre Franklin";
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: url("/assets/fonts/libre-franklin/LibreFranklin-Regular.ttf") format("truetype");
+}
+```
+
+> ⚖️ **License:** these are NBP's self-hosted font files, downloaded as-is from nbp.pl. **Verify the license of each typeface before using or redistributing it in our application.** (Brygada 1918 and Libre Franklin are both published as open-source SIL Open Font License families on Google Fonts, but confirm the specific version/terms before shipping.)
 
 ### Weights
 
